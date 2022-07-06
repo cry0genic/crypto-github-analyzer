@@ -153,7 +153,7 @@ const getAggregateAnalyticsForOrganization = async (org) => {
     arrayToFile(await listOrganisationRepositories(org), `./files/aggregate/${org}/REPOSITORIES.json`);
 }
 
-const getSpecificRepositoryAnalytics = async (owner, repo) => {
+const getSpecificRepositoryAnalytics = async (category, owner, repo) => {
 
     fs.mkdir(`./files/specific/${owner}/${repo}`, { recursive: true }, (err) => {
         if (err) return console.log(err);
@@ -178,14 +178,14 @@ const getSpecificRepositoryAnalytics = async (owner, repo) => {
     releases = sortArrayByAsc(releases, "created_at");
     forks = sortArrayByAsc(forks, "created_at");
 
-    arrayToFile(stars, `./files/specific/${owner}/${repo}/STARS.json`);
-    arrayToFile(issues, `./files/specific/${owner}/${repo}/ISSUES.json`);
-    arrayToFile(weeklyCommitActivity, `./files/specific/${owner}/${repo}/WEEKLY-COMMIT-ACTIVITY.json`);
-    arrayToFile(lastYearCommitActivity, `./files/specific/${owner}/${repo}/LAST-YEAR-COMMIT-ACTIVITY.json`);
-    arrayToFile(allContributorCommitActivity, `./files/specific/${owner}/${repo}/ALL-CONTRIBUTOR-COMMIT-ACTIVITY.json`);
-    arrayToFile(pullRequests, `./files/specific/${owner}/${repo}/PULL-REQUESTS.json`);
-    arrayToFile(releases, `./files/specific/${owner}/${repo}/RELEASES.json`);
-    arrayToFile(forks, `./files/specific/${owner}/${repo}/FORKS.json`);
+    arrayToFile(stars, `./files/specific/${category}/${owner}/${repo}/STARS.json`);
+    arrayToFile(issues, `./files/specific/${category}/${owner}/${repo}/ISSUES.json`);
+    arrayToFile(weeklyCommitActivity, `./files/specific/${category}/${owner}/${repo}/WEEKLY-COMMIT-ACTIVITY.json`);
+    arrayToFile(lastYearCommitActivity, `./files/specific/${category}/${owner}/${repo}/LAST-YEAR-COMMIT-ACTIVITY.json`);
+    arrayToFile(allContributorCommitActivity, `./files/specific/${category}/${owner}/${repo}/ALL-CONTRIBUTOR-COMMIT-ACTIVITY.json`);
+    arrayToFile(pullRequests, `./files/specific/${category}/${owner}/${repo}/PULL-REQUESTS.json`);
+    arrayToFile(releases, `./files/specific/${category}/${owner}/${repo}/RELEASES.json`);
+    arrayToFile(forks, `./files/specific/${category}/${owner}/${repo}/FORKS.json`);
 }
 
 // getAggregateAnalyticsForOrganization(POLYGON_OWNER);
