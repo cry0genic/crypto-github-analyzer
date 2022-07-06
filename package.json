@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "octokit": "^1.8.1"
+  }
+}
