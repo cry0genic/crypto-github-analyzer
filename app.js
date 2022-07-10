@@ -9,7 +9,7 @@ const getSpecificRepositoryAnalytics = async (config) => {
     for (i = 0; i < repositories.length; i++) {
         const repository = repositories[i];
         const { owner, repo } = getOwnerAndRepo(repository);
-        const fileLocation = `./files/${owner}-${repo}/`;
+        const fileLocation = `./files/repositories/${owner}-${repo}/`;
 
         const exists = makeDirectory(fileLocation);
         if (exists) {
