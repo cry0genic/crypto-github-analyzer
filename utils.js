@@ -1,41 +1,5 @@
 const fs = require("fs");
-
-const toDateTime = (secs) => {
-    try {
-        const date = new Date(secs * 1000).toISOString().split("T")[0];
-        return date;
-    } catch (e) {
-        return "1970-01-01";
-    }
-};
-
-const sortArrayByAsc = (array, property, dateField = true) => {
-    if (dateField == false) {
-        let sortedArray = array.sort((a, b) => (a[`${property}`]) - (b[`${property}`]));
-        sortedArray.forEach((item, id) => {
-            item.id = id + 1;
-        });
-        return sortedArray;
-    }
-    let sortedArray = array.sort((a, b) => new Date(a[`${property}`]) - new Date(b[`${property}`]));
-    sortedArray.forEach((item, id) => {
-        item.id = id + 1;
-    });
-    return sortedArray;
-};
-
-const arrayToFile = (array, loc) => {
-    const resp = JSON.stringify(array);
-    fs.writeFileSync(loc, resp, "utf8");
-};
-
-const handleNullSplit = (date) => {
-    if (date === null || undefined) {
-        return "N/A";
-    } else {
-        return date.split("T")[0];
-    };
-};
+const jsonexport = require("jsonexport");
 
 const makeDirectory = (loc) => {
     if (!fs.existsSync(loc)) {
@@ -70,6 +34,13 @@ const getOwnerAndRepo = (repository) => {
     };
 };
 
-getOwnerAndRepo("maticnetwork/bor")
+const toCSVFile = async (arg, loc) => {
+    try {
+        const csv = await jsonexport(arg, { fillGaps: true });
+        fs.writeFileSync(loc, csv, "utf8");
+    } catch (err) {
+        console.log(err);
+    }
+};
 
-module.exports = { toDateTime, arrayToFile, sortArrayByAsc, handleNullSplit, makeDirectory, splitGitHubURL, getOwnerAndRepo };
+module.exports = { makeDirectory, splitGitHubURL, getOwnerAndRepo, toCSVFile };

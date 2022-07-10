@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@google-cloud/bigquery": "^6.0.1",
+    "jsonexport": "^3.2.0",
     "octokit": "^1.8.1",
     "toml": "^3.0.0",
     "toml-require": "^1.2.0"
