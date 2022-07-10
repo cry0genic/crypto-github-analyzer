@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "octokit": "^1.8.1"
+    "@google-cloud/bigquery": "^6.0.1",
+    "octokit": "^1.8.1",
+    "toml": "^3.0.0",
+    "toml-require": "^1.2.0"
   }
 }

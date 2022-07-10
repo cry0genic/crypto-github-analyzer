@@ -1,0 +1,101 @@
+[
+    {
+        "ecosystems": [
+            "polygon"
+        ],
+        "dataProvider": "FILE",
+        "metrics": [
+            {
+                "name": "stars",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": "date",
+                    "yField": "id"
+                }
+            },
+            {
+                "name": "issues",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "state": "state",
+                        "created_at": "created_at",
+                        "closed_at": "closed_at",
+                        "updated_at": "updated_at"
+                    },
+                    "yField": "id"
+                }
+            },
+            {
+                "name": "weeklyCommitActivity",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "date": "date"
+                    },
+                    "yField": {
+                        "additions": "additions",
+                        "deletions": "deletions"
+                    }
+                }
+            },
+            {
+                "name": "lastYearCommitActivity",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "date": "date"
+                    },
+                    "yField": "total"
+                }
+            },
+            {
+                "name": "pullRequests",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "state": "state",
+                        "created_at": "created_at",
+                        "closed_at": "closed_at",
+                        "updated_at": "updated_at",
+                        "merged_at": "merged_at"
+                    },
+                    "yField": "id"
+                }
+            },
+            {
+                "name": "releases",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "published_at": "published_at",
+                        "created_at": "created_at"
+                    },
+                    "yField": "id"
+                }
+            },
+            {
+                "name": "forks",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "created_at": "created_at",
+                        "updated_at": "updated_at",
+                        "pushed_at": "pushed_at"
+                    },
+                    "yField": "id"
+                }
+            },
+            {
+                "name": "contributors",
+                "viz": "Line",
+                "vizConfig": {
+                    "xField": {
+                        "contributions": "contributions"
+                    },
+                    "yField": "user"
+                }
+            }
+        ]
+    }
+]

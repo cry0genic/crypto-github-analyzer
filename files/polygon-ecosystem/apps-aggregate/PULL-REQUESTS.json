@@ -1,0 +1,172 @@
+[
+    {
+        "state": "open",
+        "title": "[Bridge] Polygon Edge Bridge",
+        "user": "Kourin1996",
+        "created_at": "2022-02-14",
+        "updated_at": "2022-03-31",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 1
+    },
+    {
+        "state": "open",
+        "title": "[Bridge] Checkpoint",
+        "user": "Kourin1996",
+        "created_at": "2022-03-21",
+        "updated_at": "2022-04-01",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 2
+    },
+    {
+        "state": "open",
+        "title": "[Bridge] Add Signatures to State Transaction",
+        "user": "Kourin1996",
+        "created_at": "2022-04-13",
+        "updated_at": "2022-05-05",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 3
+    },
+    {
+        "state": "open",
+        "title": "Add gzip stream compression support",
+        "user": "zivkovicmilos",
+        "created_at": "2022-04-15",
+        "updated_at": "2022-04-16",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 4
+    },
+    {
+        "state": "open",
+        "title": "[PoC] Add ParentCommittedSeal in IBFT Extra",
+        "user": "Kourin1996",
+        "created_at": "2022-05-04",
+        "updated_at": "2022-06-03",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 5
+    },
+    {
+        "state": "open",
+        "title": "[PoS] Custom contracts",
+        "user": "dbrajovic",
+        "created_at": "2022-05-06",
+        "updated_at": "2022-06-07",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 6
+    },
+    {
+        "state": "open",
+        "title": "Implement removing from filter by ws",
+        "user": "Aleksao998",
+        "created_at": "2022-05-30",
+        "updated_at": "2022-07-07",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 7
+    },
+    {
+        "state": "open",
+        "title": "[TxPool] Enqueued txs DoS fix",
+        "user": "dbrajovic",
+        "created_at": "2022-05-30",
+        "updated_at": "2022-05-30",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 8
+    },
+    {
+        "state": "open",
+        "title": "[TxPool] Prune stale enqueued txs",
+        "user": "dbrajovic",
+        "created_at": "2022-05-31",
+        "updated_at": "2022-07-04",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 9
+    },
+    {
+        "state": "open",
+        "title": "[PoC] BLS Aggregate Signature in IBFT ComittedSeal",
+        "user": "Kourin1996",
+        "created_at": "2022-06-01",
+        "updated_at": "2022-07-04",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 10
+    },
+    {
+        "state": "open",
+        "title": "Syncer V2",
+        "user": "Kourin1996",
+        "created_at": "2022-06-15",
+        "updated_at": "2022-07-09",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 11
+    },
+    {
+        "state": "open",
+        "title": "[EXPERIMENT] Add chunking and gZip compression/decompression in syncer v2",
+        "user": "Kourin1996",
+        "created_at": "2022-06-28",
+        "updated_at": "2022-06-28",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 12
+    },
+    {
+        "state": "open",
+        "title": "Bump cloud.google.com/go/secretmanager from 1.4.0 to 1.5.0",
+        "user": "dependabot[bot]",
+        "created_at": "2022-06-29",
+        "updated_at": "2022-07-08",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 13
+    },
+    {
+        "state": "open",
+        "title": "Support custom contract address for PoS validators and block rewards for PoA + PoS",
+        "user": "dankostiuk",
+        "created_at": "2022-06-30",
+        "updated_at": "2022-07-07",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 14
+    },
+    {
+        "state": "open",
+        "title": "Bump github.com/libp2p/go-libp2p-pubsub from 0.7.0 to 0.7.1",
+        "user": "dependabot[bot]",
+        "created_at": "2022-07-04",
+        "updated_at": "2022-07-08",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 15
+    },
+    {
+        "state": "open",
+        "title": "Bump github.com/aws/aws-sdk-go from 1.44.37 to 1.44.47",
+        "user": "dependabot[bot]",
+        "created_at": "2022-07-04",
+        "updated_at": "2022-07-08",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 16
+    },
+    {
+        "state": "open",
+        "title": "Added new server config flag `--bootnode-only-sync` to ignore non-bootnodes in BestPeer()",
+        "user": "dankostiuk",
+        "created_at": "2022-07-06",
+        "updated_at": "2022-07-06",
+        "closed_at": "N/A",
+        "merged_at": "N/A",
+        "id": 17
+    }
+]

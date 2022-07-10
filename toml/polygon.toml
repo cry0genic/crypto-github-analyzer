@@ -1,0 +1,91 @@
+# Ecosystem Level Information
+title = "Polygon"
+
+sub_ecosystems = [
+  "Aavegotchi",
+  "Adamant Finance",
+  "Amasa",
+  "Atlas USV",
+  "Augury Finance",
+  "Auto",
+  "Axion",
+  "Bitberry Token",
+  "Boltr Swap",
+  "chocomintapp",
+  "Cometh",
+  "Complus Network",
+  "Cougar Swap",
+  "Cryption Network",
+  "crystyl.finance",
+  "DAI Option",
+  "Dark Matter Finance",
+  "DeHive",
+  "Deus Finance",
+  "Dex Guru",
+  "Dexible",
+  "Dfyn Network",
+  "DIA",
+  "DIGITALAX",
+  "DinoSwap",
+  "Doki Doki Finance",
+  "Everest",
+  "Firebird Finance",
+  "Float Capital",
+  "ForceDAO",
+  "Fulcrum",
+  "Furucombo",
+  "Gains Farm",
+  "GET Protocol",
+  "Ghost Market",
+  "HaloDAO",
+  "Jarvis",
+  "JetFuel Finance",
+  "Kavian Finance",
+  "Kine Protocol",
+  "KlimaDAO",
+  "MahaDao",
+  "Mai Finance",
+  "Metroswap",
+  "NFT20",
+  "NidhiDao",
+  "Otter Finance",
+  "Polycat Finance",
+  "Polydex Finance",
+  "PolyDragon",
+  "Polymarket",
+  "PolyQuity",
+  "Quickswap",
+  "Razor Network",
+  "Realis Network",
+  "Refinable",
+  "reNFT",
+  "Singular Farm",
+  "slingshot finance",
+  "sportx",
+  "StoneDefi",
+  "Superfluid",
+  "Swamp Finance",
+  "Symphony Finance",
+  "Telcoin",
+  "TendieSwap",
+  "Tesseract",
+  "Tetu",
+  "Tidal",
+  "Tranche",
+  "TreasureLand",
+  "Unstoppable Domains",
+  "World Swap",
+  "xDollar",
+]
+
+github_organizations = ["https://github.com/maticnetwork"]
+
+# Repositories
+[[repo]]
+url = "https://github.com/0xflair/finance-contracts"
+
+[[repo]]
+url = "https://github.com/0xPolygon/polygon-sdk"
+
+[[repo]]
+url = "https://github.com/AMPnet/identity-service"
