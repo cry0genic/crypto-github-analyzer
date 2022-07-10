@@ -25,18 +25,4 @@ const fetcherMap = (method) => {
     }
 };
 
-const fileMap = {
-    stars: "STARS.csv",
-    watch: "WATCH-LIST.csv",
-    issues: "ISSUES.csv",
-    weeklyCommitActivity: "WEEKLY-COMMIT-ACTIVITY.csv",
-    lastYearCommitActivity: "LAST-YEAR-COMMIT-ACTIVITY.csv",
-    allContributorCommitActivity: "ALL-CONTRIBUTOR-COMMIT-ACTVITY.jsocsvn",
-    pullRequests: "PULL-REQUESTS.csv",
-    releases: "RELEASES.csv",
-    forks: "FORKS.csv",
-    languages: "LANGUAGES.csv",
-    contributors: "CONTRIBUTORS.csv",
-};
-
-module.exports = { fileMap, fetcherMap };
+module.exports = { fetcherMap };

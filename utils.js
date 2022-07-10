@@ -4,9 +4,8 @@ const jsonexport = require("jsonexport");
 const makeDirectory = (loc) => {
     if (!fs.existsSync(loc)) {
         fs.mkdirSync(loc, { recursive: true });
-        return false;
     } else {
-        return true;
+        return console.log(`Error creating ${loc} | Probably already exists ...`)
     }
 };
 
