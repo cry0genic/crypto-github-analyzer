@@ -63,7 +63,17 @@ class Octokit {
 
     getWeeklyCommitActivity = async (owner, repo) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo).getWeeklyCommitActivity);
-        return response;
+        let result = response.map((item) => {
+            const date = item[0];
+            const additions = item[1];
+            const deletions = item[2];
+            return {
+                date,
+                additions,
+                deletions,
+            };
+        });
+        return result;
     };
 
     getLastYearCommitActivity = async (owner, repo) => {
