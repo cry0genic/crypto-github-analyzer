@@ -36,11 +36,35 @@ const getOwnerAndRepo = (repository) => {
 
 const toCSVFile = async (arg, loc) => {
     try {
-        const csv = await jsonexport(arg, { fillGaps: true });
+        const csv = await jsonexport(arg, { fillGaps: true, fillTopRow: true });
         fs.writeFileSync(loc, csv, "utf8");
     } catch (err) {
-        console.log(err);
+        console.log("Error: ", err);
     }
 };
 
-module.exports = { makeDirectory, splitGitHubURL, getOwnerAndRepo, toCSVFile };
+const appendAndFormat = (owner, repo, response) => {
+    if (response.map) {
+        response.map((obj) => {
+            obj['owner'] = owner,
+                obj['repo'] = repo;
+            return obj;
+        });
+        const data = JSON.stringify(response)
+            .replaceAll("\\b", "\\\\b").replaceAll("\\f", "\\\\f").replaceAll("\\n", "\\\\n")
+            .replaceAll("\\t", "\\\\t").replaceAll("\\v", "\\\\v").replaceAll("\\r", "\\\\r");
+        return JSON.parse(data);
+
+    } else {
+        const data = {
+            owner,
+            repo,
+            data: {
+                ...response
+            }
+        };
+        return data;
+    }
+};
+
+module.exports = { makeDirectory, splitGitHubURL, getOwnerAndRepo, toCSVFile, appendAndFormat };
