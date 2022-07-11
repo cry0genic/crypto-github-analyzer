@@ -1,8 +1,8 @@
 const { Octokit: _Octokit } = require("octokit");
 // const { sortArrayByAsc, handleNullSplit, toDateTime, arrayToFile } = require("../../utils");
 
-const githubRESTMapFn = (owner, repo) => {
-    return {
+const githubRESTMapFn = (owner, repo, page) => {
+    const routeMap = {
         listStargazers: `GET /repos/${owner}/${repo}/stargazers`,
         listWatchers: `GET /repos/${owner}/${repo}/subscribers`,
         listBranches: `GET /repos/${owner}/${repo}/branches`,
@@ -20,6 +20,10 @@ const githubRESTMapFn = (owner, repo) => {
         listRepositoryLanguages: `GET /repos/${owner}/${repo}/languages`,
         listForks: `GET /repos/${owner}/${repo}/forks`
     };
+    Object.keys(routeMap).forEach((key) => {
+        routeMap[key] = `${routeMap[key]}${page?`?page=${page}`:''}`
+    })
+    return routeMap;
 };
 
 class Octokit {
@@ -32,12 +36,19 @@ class Octokit {
             headers: {
                 "accept": "application/vnd.github.v3.star+json",
             }
+        }, (response, done) => {
+            console.log(response.url, response.status, response.data.length)
+            return response.data
         });
         return response;
     };
 
     request = async (route) => {
-        const response = await this.octokit.request(route);
+        const response = await this.octokit.request(route, {
+            headers: {
+                "accept": "application/vnd.github.v3.star+json",
+            }
+        });
         return response;
     };
 
