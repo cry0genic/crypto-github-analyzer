@@ -35,16 +35,19 @@ const getSpecificRepositoryAnalytics = async (config) => {
         const commitsList = await handleFileSystemObject(commitsLoc);
 
         await fetcher.stars(owner, repo, starsList);
-        await fetcher.issues(owner, repo, issuesList);
-        await fetcher.weeklyCommitActivity(owner, repo, wcaList);
-        await fetcher.lastYearCommitActivity(owner, repo, lycaList);
-        await fetcher.pullRequests(owner, repo, pullRequestsList);
-        await fetcher.releases(owner, repo, releasesList);
-        await fetcher.forks(owner, repo, forksList);
-        await fetcher.languages(owner, repo, languagesList);
-        await fetcher.contributors(owner, repo, contributorsList);
-        await fetcher.commits(owner, repo, commitsList);
+        // await fetcher.issues(owner, repo, issuesList);
+        // await fetcher.weeklyCommitActivity(owner, repo, wcaList);
+        // await fetcher.lastYearCommitActivity(owner, repo, lycaList);
+        // await fetcher.pullRequests(owner, repo, pullRequestsList);
+        // await fetcher.releases(owner, repo, releasesList);
+        // await fetcher.forks(owner, repo, forksList);
+        // await fetcher.languages(owner, repo, languagesList);
+        // await fetcher.contributors(owner, repo, contributorsList);
+        // await fetcher.commits(owner, repo, commitsList);
     }
 };
 
 getSpecificRepositoryAnalytics(config);
+
+// 4965 for 393
+// 4993 for 9mgg

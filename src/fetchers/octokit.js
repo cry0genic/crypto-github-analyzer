@@ -1,6 +1,7 @@
 const { Octokit: _Octokit } = require("octokit");
 const { toCSVFile, appendAndFormat } = require("../../utils");
 const fs = require("fs");
+const { createTokenAuth } = require("./create-token-auth");
 
 const githubRESTMapFn = (owner, repo, list) => {
     let page = list.slice(-1).pop();
@@ -237,7 +238,8 @@ class Octokit {
 }
 
 const octokit = new Octokit(new _Octokit({
-    auth: process.env.GITHUB_ACCESS_TOKEN || "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"
+    auth: [""],
+    authStrategy: createTokenAuth
 }));
 
 module.exports = { octokit };
