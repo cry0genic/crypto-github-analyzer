@@ -3,19 +3,20 @@ require("dotenv").config()
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-// [yadu sir, aditya, madhav, subhramit, cc, orchid, hitansh, harsh, harshRathi, samriddha, dhruv]
 const tokens = [
-    process.env.YADU,
-    process.env.ADITYA,
-    process.env.MADHAV,
-    process.env.BASU,
-    process.env.SHIRSH,
-    process.env.ORCHID,
-    process.env.HITANSH,
-    process.env.HARSHJR,
-    process.env.HARSHSR,
-    process.env.SAMRIDDHA,
-    process.env.DHRUV
+    process.env.KEY1,
+    process.env.KEY2,
+    process.env.KEY3,
+    process.env.KEY4,
+    process.env.KEY5,
+    process.env.KEY6,
+    process.env.KEY7,
+    process.env.KEY8,
+    process.env.KEY9,
+    process.env.KEY10,
+    process.env.KEY11,
+    process.env.KEY12,
+    process.env.KEY13,
 ];
 let currentToken = "";
 let currentIndex = 0;
