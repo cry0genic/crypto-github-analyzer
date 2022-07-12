@@ -23,7 +23,8 @@ const githubRESTMapFn = (owner, repo, list) => {
         listOrganisationRepositories: `GET /orgs/${owner}/repos`,
         listRepositoryContributors: `GET /repos/${owner}/${repo}/contributors`,
         listRepositoryLanguages: `GET /repos/${owner}/${repo}/languages`,
-        listForks: `GET /repos/${owner}/${repo}/forks`
+        listForks: `GET /repos/${owner}/${repo}/forks`,
+        listCommits: `GET /repos/${owner}/${repo}/commits`
     };
     Object.keys(routeMap).forEach((key) => {
         routeMap[key] = `${routeMap[key]}${page ? `?page=${page}` : ''}`;
@@ -130,7 +131,13 @@ class Octokit {
                 return fileLocation + `languages/` + endLoc;
             case "contributors":
                 return fileLocation + `contributors/` + endLoc;
+            case "commits":
+                return fileLocation + `commits/` + endLoc;
         }
+    };
+
+    listCommits = async (owner, repo, list) => {
+        await this.paginate(githubRESTMapFn(owner, repo, list).listCommits, list, owner, repo);
     };
 
     listStargazers = async (owner, repo, list) => {

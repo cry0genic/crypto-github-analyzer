@@ -21,7 +21,8 @@ const getSpecificRepositoryAnalytics = async (config) => {
         const forksLoc = fileLocation + `forks/` + endLoc;
         const languagesLoc = fileLocation + `languages/` + endLoc;
         const contributorsLoc = fileLocation + `contributors/` + endLoc;
-
+        const commitsLoc = fileLocation + `commits/` + endLoc;
+       
         const starsList = await handleFileSystemObject(starsLoc);
         const issuesList = await handleFileSystemObject(issuesLoc);
         const wcaList = await handleFileSystemObject(weeklyCommitActivityLoc);
@@ -31,6 +32,7 @@ const getSpecificRepositoryAnalytics = async (config) => {
         const forksList = await handleFileSystemObject(forksLoc);
         const languagesList = await handleFileSystemObject(languagesLoc);
         const contributorsList = await handleFileSystemObject(contributorsLoc);
+        const commitsList = await handleFileSystemObject(commitsLoc);
 
         await fetcher.stars(owner, repo, starsList);
         await fetcher.issues(owner, repo, issuesList);
@@ -41,6 +43,7 @@ const getSpecificRepositoryAnalytics = async (config) => {
         await fetcher.forks(owner, repo, forksList);
         await fetcher.languages(owner, repo, languagesList);
         await fetcher.contributors(owner, repo, contributorsList);
+        await fetcher.commits(owner, repo, commitsList);
     }
 };
 

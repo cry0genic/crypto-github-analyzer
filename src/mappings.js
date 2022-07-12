@@ -20,7 +20,8 @@ const fetcherMap = (method) => {
                 listOrganisationRepositories: octokit.listOrganisationRepositories,
                 contributors: octokit.listRepositoryContributors,
                 forks: octokit.listForks,
-                languages: octokit.listRepositoryLanguages
+                languages: octokit.listRepositoryLanguages,
+                commits: octokit.listCommits
             };
     }
 };
