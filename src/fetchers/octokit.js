@@ -68,6 +68,11 @@ class Octokit {
 
             if (currentPage != parseInt(popList.page)) {
                 const data = appendAndFormat(owner, repo, response.data);
+                await toCSVFile(data, saveLoc + fileName);
+                return;
+            }
+
+            if (trimmedResponseTag != popList.etag) {
                 const files = fs.readdirSync(saveLoc, (err) => {
                     if (err) return console.log(`${err} for directory at ${location}`);
                 });;
@@ -86,11 +91,6 @@ class Octokit {
                         if (err) return console.log("Error: ", err);
                     });
                 }
-                await toCSVFile(data, saveLoc + fileName);
-                return;
-            }
-
-            if (trimmedResponseTag != popList.etag) {
                 const prevPage = currentPage - 1;
                 const prevPageRoute = route.split("?page=")[0] + `?page=${prevPage}`;
                 return this.paginate(prevPageRoute, list.slice(0, list.length - 1), owner, repo);
