@@ -1,13 +1,6 @@
 const fs = require("fs");
 const jsonexport = require("jsonexport");
 
-const makeDirectory = (loc) => {
-    if (!fs.existsSync(loc)) {
-        fs.mkdirSync(loc, { recursive: true });
-    } else {
-        return console.log(`Error creating ${loc} | Probably already exists ...`)
-    }
-};
 
 const splitGitHubURL = (url, org = false) => {
     if (org == true) {
@@ -15,8 +8,7 @@ const splitGitHubURL = (url, org = false) => {
         return organization;
     }
     const splitString = url.split("https://github.com/")[1];
-    const owner = splitString.split("/")[0];
-    const repo = splitString.split("/")[1];
+    const [owner, repo] = splitString.split("/");
     return {
         owner,
         repo
@@ -33,10 +25,10 @@ const getOwnerAndRepo = (repository) => {
     };
 };
 
-const toCSVFile = async (arg, loc) => {
+const toCSVFile = async (data, location) => {
     try {
-        const csv = await jsonexport(arg, { fillGaps: true, fillTopRow: true });
-        fs.writeFileSync(loc, csv, "utf8");
+        const csv = await jsonexport(data, { fillGaps: true, fillTopRow: true });
+        fs.writeFileSync(location, csv, "utf8");
     } catch (err) {
         console.log("Error: ", err);
     }
@@ -58,12 +50,33 @@ const appendAndFormat = (owner, repo, response) => {
         const data = {
             owner,
             repo,
-            data: {
-                ...response
-            }
+            ...response
         };
         return data;
     }
 };
 
-module.exports = { makeDirectory, splitGitHubURL, getOwnerAndRepo, toCSVFile, appendAndFormat };
+const handleFileSystemObject = async (location) => {
+    if (!fs.existsSync(location)) {
+        fs.mkdirSync(location);
+        return [];
+    }
+
+    const files = fs.readdirSync(location, (err) => {
+        if (err) return console.log(`${err} for directory at ${location}`);
+    });;
+
+    let result = files.map((file) => {
+        const fileName = file.split(".csv")[0];
+        const [page, etag] = fileName.split("#");
+        return {
+            page,
+            etag
+        };
+    });
+    return result.sort((a, b) => {
+        return a.page - b.page;
+    });
+};
+
+module.exports = { splitGitHubURL, getOwnerAndRepo, toCSVFile, appendAndFormat, handleFileSystemObject };
