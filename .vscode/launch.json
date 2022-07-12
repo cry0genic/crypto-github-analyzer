@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Fetch Ecosystem Repos",
+            "program": "${workspaceFolder}/scripts/fetch-ecosystem-repos/index.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "app.js",
