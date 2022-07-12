@@ -48,6 +48,3 @@ const getSpecificRepositoryAnalytics = async (config) => {
 };
 
 getSpecificRepositoryAnalytics(config);
-
-// 4965 for 393
-// 4993 for 9mgg

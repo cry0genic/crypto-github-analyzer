@@ -145,22 +145,22 @@ class Octokit {
         await this.paginate(githubRESTMapFn(owner, repo, list).listStargazers, list, owner, repo);
     };
 
-    listWatchers = async (owner, repo) => {
+    listWatchers = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listWatchers, list, owner, repo);
         return response;
     };
 
-    listBranches = async (owner, repo) => {
+    listBranches = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listBranches, list, owner, repo);
         return response;
     };
 
-    listRepositoryIssues = async (owner, repo) => {
+    listRepositoryIssues = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listRepositoryIssues, list, owner, repo);
         return response;
     };
 
-    getWeeklyCommitActivity = async (owner, repo) => {
+    getWeeklyCommitActivity = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).getWeeklyCommitActivity, list, owner, repo);
         let result = response.map((item) => {
             const date = item[0];
@@ -175,12 +175,12 @@ class Octokit {
         return result;
     };
 
-    getLastYearCommitActivity = async (owner, repo) => {
+    getLastYearCommitActivity = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).getLastYearCommitActivity, list, owner, repo);
         return response;
     };
 
-    getAllContributorCommitActivity = async (owner, repo) => {
+    getAllContributorCommitActivity = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).getAllContributorCommitActivity, list, owner, repo);
         return response;
     };
@@ -201,12 +201,12 @@ class Octokit {
         return response;
     };
 
-    listPullRequests = async (owner, repo) => {
+    listPullRequests = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listPullRequests, list, owner, repo);
         return response;
     };
 
-    listReleases = async (owner, repo) => {
+    listReleases = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listReleases, list, owner, repo);
         return response;
     };
@@ -217,7 +217,7 @@ class Octokit {
         return response;
     };
 
-    listRepositoryContributors = async (owner, repo) => {
+    listRepositoryContributors = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listRepositoryContributors, list, owner, repo);
         return response;
     };
@@ -231,7 +231,7 @@ class Octokit {
     // getRepositoryTeams
     // getAllRepositoryTopics
 
-    listForks = async (owner, repo) => {
+    listForks = async (owner, repo, list) => {
         const response = await this.paginate(githubRESTMapFn(owner, repo, list).listForks, list, owner, repo);
         return response;
     };
