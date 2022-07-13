@@ -27,7 +27,20 @@ const getOwnerAndRepo = (repository) => {
 
 const toCSVFile = async (data, location) => {
     try {
-        const csv = await jsonexport(data, { fillGaps: true, fillTopRow: true });
+        const csv = await jsonexport(data, { 
+            fillGaps: true, 
+            fillTopRow: true, 
+            typeHandlers: {
+                String:(value, index, parent)=>{
+                    if (encodeURI(value) != value) {
+                        // stringify only when there is atleast one special character 
+                        // and remove the outer double qutoes
+                        return JSON.stringify(value).slice(1, -1)
+                    }
+                    return value
+                }
+            }
+        });
         fs.writeFileSync(location, csv, "utf8");
     } catch (err) {
         console.log("Error: ", err);
@@ -36,16 +49,11 @@ const toCSVFile = async (data, location) => {
 
 const appendAndFormat = (owner, repo, response) => {
     if (response.map) {
-        response.map((obj) => {
+        return response.map((obj) => {
             obj['owner'] = owner,
                 obj['repo'] = repo;
             return obj;
-        });
-        const data = JSON.stringify(response)
-            .replaceAll("\\b", "\\\\b").replaceAll("\\f", "\\\\f").replaceAll("\\n", "\\\\n")
-            .replaceAll("\\t", "\\\\t").replaceAll("\\v", "\\\\v").replaceAll("\\r", "\\\\r");
-        return JSON.parse(data);
-
+        });        
     } else {
         const data = {
             owner,
