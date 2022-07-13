@@ -2,7 +2,7 @@ const { octokit } = require("./src/fetchers/octokit");
 const config = require("./config.json");
 const { fetcherMap } = require("./src/mappings");
 const fetcher = fetcherMap("octokit"); //using Octokit
-const { getOwnerAndRepo, toCSVFile, handleFileSystemObject, appendAndFormat } = require("./utils");
+const { getOwnerAndRepo, handleFileSystemObject } = require("./utils");
 
 const getSpecificRepositoryAnalytics = async (config) => {
     const repositories = config.repositories;

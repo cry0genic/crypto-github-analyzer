@@ -45,11 +45,12 @@ class Octokit {
         await this.octokit.paginate(route, {
             headers: {
                 "accept": "application/vnd.github.v3.star+json",
-            }
+            },
+            per_page: 100,
         }, async (response, done) => {
             const { etag: responseTag } = response.headers;
             const rateLimitRemaining = response.headers['x-ratelimit-remaining'];
-            if (rateLimitRemaining < 2) {
+            if (parseInt(rateLimitRemaining) < 2) {
                 done();
             }
 

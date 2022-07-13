@@ -3,22 +3,7 @@ require("dotenv").config()
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const tokens = [
-    process.env.KEY1,
-    process.env.KEY2,
-    process.env.KEY3,
-    process.env.KEY4,
-    process.env.KEY5,
-    process.env.KEY6,
-    process.env.KEY7,
-    process.env.KEY8,
-    process.env.KEY9,
-    process.env.KEY10,
-    process.env.KEY11,
-    process.env.KEY12,
-    process.env.KEY13,
-];
-let currentToken = "";
+const tokens = process.env.TOKENS.split(", ")
 let currentIndex = 0;
 
 async function auth() {
@@ -35,8 +20,6 @@ async function auth() {
 function withAuthorizationPrefix() {
     const choice = tokens[currentIndex];
     currentIndex = (currentIndex + 1) % tokens.length;
-    currentToken = choice;
-
     return `token ${choice}`;
 }
 
