@@ -1,44 +1,45 @@
 const fs = require("fs");
 const jsonexport = require("jsonexport");
 
-const toCSVFile = async (data, location, outputHeaders) => {
+const toCSVFile = async (dataString, location) => {
     try {
-        const csv = await jsonexport(data, { 
-            fillGaps: true, 
-            fillTopRow: true, 
-            headers: outputHeaders,
-            typeHandlers: {
-                String:(value, index, parent)=>{
-                    if (encodeURI(value) != value) {
-                        // stringify only when there is atleast one special character 
-                        // and remove the outer double qutoes
-                        return JSON.stringify(value).slice(1, -1)
-                    }
-                    return value
-                }
-            }
-        });
-        fs.writeFileSync(location, csv, "utf8");
+        fs.writeFileSync(location, dataString, "utf8");
     } catch (err) {
         console.error(`error while saving the CSV file (${location})`, err);
     }
 };
 
-const appendAndFormat = (owner, repo, response) => {
+const appendAndFormat = async (owner, repo, response, outputHeaders) => {
+    let data
     if (response.map) {
-        return response.map((obj) => {
+        data = response.map((obj) => {
             obj['owner'] = owner,
                 obj['repo'] = repo;
             return obj;
         });        
     } else {
-        const data = {
+        data = {
             owner,
             repo,
             ...response
         };
-        return data;
     }
+    const dataString = await jsonexport(data, { 
+        fillGaps: true, 
+        fillTopRow: true, 
+        headers: outputHeaders,
+        typeHandlers: {
+            String:(value, index, parent)=>{
+                if (encodeURI(value) != value) {
+                    // stringify only when there is atleast one special character 
+                    // and remove the outer double qutoes
+                    return JSON.stringify(value).slice(1, -1)
+                }
+                return value
+            }
+        }
+    });
+    return dataString
 };
 
 const readFilesMetadata = async (location) => {
@@ -55,10 +56,10 @@ const readFilesMetadata = async (location) => {
 
     let result = files.map((file) => {
         const fileName = file.split(".csv")[0];
-        const [page, etag] = fileName.split("#");
+        const [page, hexDigest] = fileName.split("#");
         return {
             page,
-            etag
+            hexDigest
         };
     });
     return result.sort((a, b) => {

@@ -1,5 +1,6 @@
 const { Octokit } = require("octokit");
 const fs = require("fs");
+const crypto = require("crypto")
 const { multiTokenAuth } = require("./create-multi-token-auth");
 const { appendAndFormat, readFilesMetadata, toCSVFile } = require("./utils");
 
@@ -107,7 +108,8 @@ class GithubClient {
 
     buildResponseHandler = (data, parameters, filesMetadata, dataDirectoryPath, outputHeaders) => {
         return async (response, done) => {
-            const { etag, ["x-ratelimit-remaining"]: rateLimitRemaining } = response.headers;
+           
+            const { ["x-ratelimit-remaining"]: rateLimitRemaining } = response.headers;
 
             // terminate if rate limit hit
             if (parseInt(rateLimitRemaining) < 2) {
@@ -115,38 +117,36 @@ class GithubClient {
             }
 
             // construct the file location
-            const currentPage = parseInt(response.url.split("?page=")[1]) || 1;
-            const etagString = etag.split('"')[etag.split('"').length - 2];
-            const fileName = `${currentPage}#${etagString}.csv`;
-            const fileLocation = `${dataDirectoryPath}/${fileName}`
-            
-            let poppedFileMetadata = filesMetadata.slice(-1).pop();
+            const currentPage = parseInt(response.url.split("?page=")[1]) || 1;            
+            const poppedFileMetadata = filesMetadata.slice(-1).pop();
             const { owner, repo } = parameters;
+            const dataHexDigest = crypto.createHash("sha256").update(JSON.stringify(response.data)).digest("hex")
 
             // No file in the directory (start saving) || Fresh page (not available in teh directory)
-            if (poppedFileMetadata == undefined || currentPage != parseInt(poppedFileMetadata.page)) {
-                const formattedData = appendAndFormat(owner, repo, response.data);
-                await toCSVFile(formattedData, fileLocation, outputHeaders);
+            if (poppedFileMetadata == undefined || currentPage > parseInt(poppedFileMetadata.page)) {
+                const dataString = await appendAndFormat(owner, repo, response.data, outputHeaders);
+                const fileName = `${currentPage}#${dataHexDigest}.csv`;
+                const fileLocation = `${dataDirectoryPath}/${fileName}`
+                await toCSVFile(dataString, fileLocation, outputHeaders);
                 console.log(`stored ${data} for ${owner}/${repo} - page ${currentPage} `)
                 return
             }
 
+            console.log(`current: ${currentPage} | popped: ${poppedFileMetadata.page}`)
+
             // Delete the file if the ETag is not matching and move to the previous page
-            if (etagString != poppedFileMetadata.etag) {
-                poppedFileMetadata = filesMetadata.pop();
-                const {page, etag: storedTag} = poppedFileMetadata;
-                const storedFileName = `${page}#${storedTag}.csv`;
+            if (dataHexDigest != poppedFileMetadata.hexDigest) {
+                const newFilesMetadata = [...filesMetadata];
+                const newPoppedFileMetadata = newFilesMetadata.pop();
+                const {page, hexDigest: storedHexDigest} = newPoppedFileMetadata;
+                const storedFileName = `${page}#${storedHexDigest}.csv`;
                 const storedFileLocation = `${dataDirectoryPath}/${storedFileName}`
-                fs.unlink(storedFileLocation, (err) => {
-                    if (err) {
-                        console.error(`error while removeing the file (${fileLocation})`, err)
-                        done()
-                    };
-                });
+                fs.unlinkSync(storedFileLocation);
                 console.log(`removed ${data} for ${owner}/${repo} - page ${page} `)
-                const prevPageRoute = this.buildRoute(data, parameters, filesMetadata, currentPage - 1)
-                await this.octokit.paginate(prevPageRoute, this.buildPaginateParameters(data), this.buildResponseHandler(data, parameters, filesMetadata, dataDirectoryPath, outputHeaders))
-                done()                
+                const prevPageRoute = this.buildRoute(data, parameters, newFilesMetadata, currentPage - 1)
+                done()
+                await this.octokit.paginate(prevPageRoute, this.buildPaginateParameters(data), this.buildResponseHandler(data, parameters, newFilesMetadata, dataDirectoryPath, outputHeaders))
+                          
             }
         }
     }
