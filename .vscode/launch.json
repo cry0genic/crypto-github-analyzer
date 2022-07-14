@@ -14,13 +14,13 @@
             "type": "node"
         },
         {
-            "type": "pwa-node",
+            "type": "node",
             "request": "launch",
-            "name": "app.js",
+            "name": "Fetch Data",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "app.js"
+            "program": "./src/index.js"
         }
     ]
 }

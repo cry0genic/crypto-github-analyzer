@@ -1,0 +1,11 @@
+{
+    "repositories": [
+        "maticnetwork/bor"
+    ],
+    "repoData": {
+        "repo_commits": {
+            "enabled": true,
+            "headers": ["commit.author.name"]
+        }
+    }
+}

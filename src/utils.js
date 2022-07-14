@@ -1,35 +1,12 @@
 const fs = require("fs");
 const jsonexport = require("jsonexport");
 
-
-const splitGitHubURL = (url, org = false) => {
-    if (org == true) {
-        const organization = url.split("https://github.com/")[1];
-        return organization;
-    }
-    const splitString = url.split("https://github.com/")[1];
-    const [owner, repo] = splitString.split("/");
-    return {
-        owner,
-        repo
-    };
-};
-
-const getOwnerAndRepo = (repository) => {
-    const splitString = repository.split("/");
-    const owner = splitString[0];
-    const repo = splitString[1];
-    return {
-        owner,
-        repo
-    };
-};
-
-const toCSVFile = async (data, location) => {
+const toCSVFile = async (data, location, outputHeaders) => {
     try {
         const csv = await jsonexport(data, { 
             fillGaps: true, 
             fillTopRow: true, 
+            headers: outputHeaders,
             typeHandlers: {
                 String:(value, index, parent)=>{
                     if (encodeURI(value) != value) {
@@ -43,7 +20,7 @@ const toCSVFile = async (data, location) => {
         });
         fs.writeFileSync(location, csv, "utf8");
     } catch (err) {
-        console.log("Error: ", err);
+        console.error(`error while saving the CSV file (${location})`, err);
     }
 };
 
@@ -64,9 +41,11 @@ const appendAndFormat = (owner, repo, response) => {
     }
 };
 
-const handleFileSystemObject = async (location) => {
+const readFilesMetadata = async (location) => {
     if (!fs.existsSync(location)) {
-        fs.mkdirSync(location);
+        fs.mkdirSync(location, {
+            recursive: true
+        });
         return [];
     }
 
@@ -87,4 +66,4 @@ const handleFileSystemObject = async (location) => {
     });
 };
 
-module.exports = { splitGitHubURL, getOwnerAndRepo, toCSVFile, appendAndFormat, handleFileSystemObject };
+module.exports = { toCSVFile, appendAndFormat, readFilesMetadata };
