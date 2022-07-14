@@ -161,7 +161,16 @@ class GithubClient {
         const paginateParameters = this.buildPaginateParameters(data)
         const responseHandler = this.buildResponseHandler(data, parameters, filesMetadata, dataDirectoryPath, outputHeaders)
 
-        const result = await this.octokit.paginate(route, paginateParameters, responseHandler)
+        let result = []
+        try {
+            result = await this.octokit.paginate(route, paginateParameters, responseHandler)
+        } catch (error) {
+            console.log(error.message)
+            if (error.message === "Not Found") {
+                return result;
+            }
+            throw error
+        }
         
         // handle response if required 
         return (dataConfig[data].resultHandler && dataConfig[data].resultHandler(result)) || result
