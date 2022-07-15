@@ -164,6 +164,8 @@ class GithubClient {
                 await this.octokit.paginate(prevPageRoute, this.buildPaginateParameters(data, filesMetadata), this.buildResponseHandler(data, parameters, newFilesMetadata, dataDirectoryPath, outputHeaders));
 
             }
+
+            console.log(`already up to date for ${data} of ${owner}/${repo}!`)
         };
     };
 
