@@ -1,6 +1,6 @@
-require("dotenv").config()
+require("dotenv").config();
 
-const tokens = process.env.TOKENS.split(",")
+const tokens = process.env.TOKENS.split(",");
 let currentIndex = 0;
 
 async function auth() {

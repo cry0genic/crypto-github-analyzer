@@ -10,13 +10,13 @@ const toCSVFile = async (dataString, location) => {
 };
 
 const appendAndFormat = async (owner, repo, response, outputHeaders) => {
-    let data
+    let data;
     if (response.map) {
         data = response.map((obj) => {
             obj['owner'] = owner,
                 obj['repo'] = repo;
             return obj;
-        });        
+        });
     } else {
         data = {
             owner,
@@ -24,22 +24,22 @@ const appendAndFormat = async (owner, repo, response, outputHeaders) => {
             ...response
         };
     }
-    const dataString = await jsonexport(data, { 
-        fillGaps: true, 
-        fillTopRow: true, 
+    const dataString = await jsonexport(data, {
+        fillGaps: true,
+        fillTopRow: true,
         headers: outputHeaders,
         typeHandlers: {
-            String:(value, index, parent)=>{
+            String: (value, index, parent) => {
                 if (encodeURI(value) != value) {
                     // stringify only when there is atleast one special character 
                     // and remove the outer double qutoes
-                    return JSON.stringify(value).slice(1, -1)
+                    return JSON.stringify(value).slice(1, -1);
                 }
-                return value
+                return value;
             }
         }
     });
-    return dataString
+    return dataString;
 };
 
 const readFilesMetadata = async (location) => {
