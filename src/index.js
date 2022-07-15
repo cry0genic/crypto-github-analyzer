@@ -33,4 +33,12 @@ const fetchData = async () => {
     console.log(`synced all repositories`);
 };
 
+const fetchDataFullAsync = async () => {
+    const repositories_configured = config.repositories;
+    console.log(`configured repositories count: ${repositories_configured.length}`);
+    await Promise.all(repositories_configured.map((repository) => fetchRepoData(repository)));
+    console.log(`synced initiated for ${repositories_configured.length} repositories`);
+}
+
 fetchData();
+// fetchDataFullAsync();
