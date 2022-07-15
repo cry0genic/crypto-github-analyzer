@@ -180,7 +180,16 @@ class GithubClient {
         if (data === "repo_commits") {
             // file does not exist
             if (filesMetadata.length === 0) {
-                const result = await this.octokit.paginate(route, paginateParameters);
+                let result = []
+                try {
+                    result = await this.octokit.paginate(route, paginateParameters);
+                } catch (error) {
+                    if (error.message === "Not Found") {
+                        return result;
+                    }
+                    console.error(`paginate failed for ${data} | ${JSON.stringify(parameters)}`, error);
+                    throw error;
+                }
                 const fileLocation = `${dataDirectoryPath}/${encodeURIComponent(paginateParameters.until)}#NA.csv`;
                 const dataString = await appendAndFormat(owner, repo, result, outputHeaders);
                 await toCSVFile(dataString, fileLocation);
@@ -190,7 +199,16 @@ class GithubClient {
             // file exists
             if (filesMetadata.length === 1) {
                 const { page: since, _ } = filesMetadata.slice(-1)[0];
-                const result = await this.octokit.paginate(route, paginateParameters);
+                let result = []
+                try {
+                    result = await this.octokit.paginate(route, paginateParameters);
+                } catch (error) {
+                    if (error.message === "Not Found") {
+                        return result;
+                    }
+                    console.error(`paginate failed for ${data} | ${JSON.stringify(parameters)}`, error);
+                    throw error;
+                }
                 const dataString = "\r\n" + (await appendAndFormat(owner, repo, result, outputHeaders)).split("repo\r\n")[1];
                 // append to old file
                 fs.appendFileSync(`${dataDirectoryPath}/${since}#NA.csv`, dataString);
