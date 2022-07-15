@@ -209,6 +209,10 @@ class GithubClient {
                     console.error(`paginate failed for ${data} | ${JSON.stringify(parameters)}`, error);
                     throw error;
                 }
+                if (result.length === 0) {
+                    console.log(`already up to date for ${data} of ${owner}/${repo}!`)
+                    return;
+                }
                 const dataString = "\r\n" + (await appendAndFormat(owner, repo, result, outputHeaders)).split("repo\r\n")[1];
                 // append to old file
                 fs.appendFileSync(`${dataDirectoryPath}/${since}#NA.csv`, dataString);
