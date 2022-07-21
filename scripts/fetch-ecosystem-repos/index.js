@@ -25,7 +25,9 @@ const repoAggregator = async (list) => {
         const ecosys = list[index];
         resultList.push(...await fetchListOfReposForEcosystem(ecosys));
     }
-    fs.writeFileSync("tempResults.json", JSON.stringify(resultList));
+    const uniqueSet = new Set(resultList);
+    const newResultList = [...uniqueSet];
+    fs.writeFileSync("tempResults.json", JSON.stringify(newResultList));
 };
 
 const fetchOrganizationRepositories = async (organization) => {
