@@ -109,7 +109,7 @@ class GithubClient {
             per_page: 100
         };
         if (data === "repo_commits" && filesMetadata.length === 1) {
-            const { page: since, _ } = filesMetadata.slice(-1)[0];
+            const { _, hexDigest: since } = filesMetadata.slice(-1)[0];
             paginateParameters["since"] = decodeURIComponent(since);
             paginateParameters["until"] = new Date().toISOString();
         }
@@ -190,7 +190,7 @@ class GithubClient {
                     console.error(`paginate failed for ${data} | ${JSON.stringify(parameters)}`, error);
                     throw error;
                 }
-                const fileLocation = `${dataDirectoryPath}/${encodeURIComponent(paginateParameters.until)}#NA.csv`;
+                const fileLocation = `${dataDirectoryPath}/1#${encodeURIComponent(paginateParameters.until)}.csv`;
                 const dataString = await appendAndFormat(owner, repo, result, outputHeaders);
                 await toCSVFile(dataString, fileLocation);
                 console.log(`stored ${data} for ${owner}/${repo}`);
@@ -198,7 +198,7 @@ class GithubClient {
             }
             // file exists
             if (filesMetadata.length === 1) {
-                const { page: since, _ } = filesMetadata.slice(-1)[0];
+                const { _, hexDigest: since } = filesMetadata.slice(-1)[0];
                 let result = []
                 try {
                     result = await this.octokit.paginate(route, paginateParameters);
@@ -215,8 +215,8 @@ class GithubClient {
                 }
                 const dataString = "\r\n" + (await appendAndFormat(owner, repo, result, outputHeaders)).split("repo\r\n")[1];
                 // append to old file
-                fs.appendFileSync(`${dataDirectoryPath}/${since}#NA.csv`, dataString);
-                fs.renameSync(`${dataDirectoryPath}/${since}#NA.csv`, `${dataDirectoryPath}/${encodeURIComponent(paginateParameters.until)}#NA.csv`);
+                fs.appendFileSync(`${dataDirectoryPath}/1#${since}.csv`, dataString);
+                fs.renameSync(`${dataDirectoryPath}/1#${since}.csv`, `${dataDirectoryPath}/1#${encodeURIComponent(paginateParameters.until)}.csv`);
                 return result;
             }
         }
